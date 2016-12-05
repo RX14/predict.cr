@@ -1,0 +1,10 @@
+name: predict
+version: 0.1.0
+
+authors:
+  - RX14 <chris@rx14.co.uk>
+
+scripts:
+  postinstall: make release=true -C src/predict/ext
+
+license: MIT

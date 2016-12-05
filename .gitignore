@@ -1,0 +1,46 @@
+/doc/
+/libs/
+/lib/
+/.crystal/
+/.shards/
+
+# Libraries don't need dependency lock
+# Dependencies will be locked in application that uses them
+/shard.lock
+
+### C++ ###
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+/src/predict/ext/test
+/bench
