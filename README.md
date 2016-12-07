@@ -13,7 +13,7 @@ Add this to your application's `shard.yml`:
 dependencies:
   predict:
     github: RX14/predict.cr
-    version: 0.1.0
+    version: 0.1.1
 ```
 
 ## Usage
