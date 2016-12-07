@@ -197,4 +197,56 @@ describe Predict::Satellite do
     look_angle.elevation.should be_close(0.0574066, 0.5e-7)
     look_angle.range.should be_close(40812.259, 0.5e-3)
   end
+
+  describe "#next_pass" do
+    it "finds the next satellite pass" do
+      tle = Predict::TLE.parse_three_line <<-TLE
+        AO-51 [+]
+        1 28375U 04025K   09105.66391970  .00000003  00000-0  13761-4 0  3643
+        2 28375 098.0551 118.9086 0084159 315.8041 043.6444 14.40638450251959
+        TLE
+      time = Time.new(2009, 1, 5, 0, 0, 0)
+
+      satellite = Predict::Satellite.new(tle)
+
+      pass_start, pass_end = satellite.next_pass(at: GROUND_STATION, after: time)
+      pass_start.should be_close(Time.new(2009, 1, 5, 4, 28, 10), 5.seconds)
+      pass_end.should be_close(Time.new(2009, 1, 5, 4, 32, 15), 5.seconds)
+
+      pass_start, pass_end = satellite.next_pass(at: GROUND_STATION, after: pass_end)
+      pass_start.should be_close(Time.new(2009, 1, 5, 6, 4, 0), 5.seconds)
+      pass_end.should be_close(Time.new(2009, 1, 5, 6, 18, 0), 5.seconds)
+
+      pass_start, pass_end = satellite.next_pass(at: GROUND_STATION, after: pass_end)
+      pass_start.should be_close(Time.new(2009, 1, 5, 7, 42, 45), 5.seconds)
+      pass_end.should be_close(Time.new(2009, 1, 5, 7, 57, 50), 5.seconds)
+
+      pass_start, pass_end = satellite.next_pass(at: GROUND_STATION, after: pass_end)
+      pass_start.should be_close(Time.new(2009, 1, 5, 9, 22, 5), 5.seconds)
+      pass_end.should be_close(Time.new(2009, 1, 5, 9, 34, 20), 5.seconds)
+
+      pass_start, pass_end = satellite.next_pass(at: GROUND_STATION, after: pass_end)
+      pass_start.should be_close(Time.new(2009, 1, 5, 11, 2, 5), 5.seconds)
+      pass_end.should be_close(Time.new(2009, 1, 5, 11, 7, 35), 5.seconds)
+    end
+
+    it "finds the current pass with find_occuring_pass" do
+      tle = Predict::TLE.parse_three_line <<-TLE
+        AO-51 [+]
+        1 28375U 04025K   09105.66391970  .00000003  00000-0  13761-4 0  3643
+        2 28375 098.0551 118.9086 0084159 315.8041 043.6444 14.40638450251959
+        TLE
+      time = Time.new(2009, 1, 5, 4, 30, 0)
+
+      satellite = Predict::Satellite.new(tle)
+
+      pass_start, pass_end = satellite.next_pass(at: GROUND_STATION, after: time)
+      pass_start.should be_close(Time.new(2009, 1, 5, 6, 4, 0), 5.seconds)
+      pass_end.should be_close(Time.new(2009, 1, 5, 6, 18, 0), 5.seconds)
+
+      pass_start, pass_end = satellite.next_pass(at: GROUND_STATION, after: time, find_occuring_pass: true)
+      pass_start.should be_close(Time.new(2009, 1, 5, 4, 28, 10), 5.seconds)
+      pass_end.should be_close(Time.new(2009, 1, 5, 4, 32, 15), 5.seconds)
+    end
+  end
 end

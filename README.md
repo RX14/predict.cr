@@ -50,6 +50,16 @@ satellite_position.to_lat_long_alt(time) # => Predict::LatLongAlt(@latitude=0.89
 # Predict look angles from an observer (200m altitude)
 observer = Predict::LatLongAlt.from_degrees(52.9, -2.24, 200.0)
 observer.look_at(satellite_position, time) # => Predict::LookAngle(@azimuth=0.50118495648349193, @elevation=-0.55812612380797122, @range=7501.0178628601843)
+
+# Predict next pass time
+start_time, end_time = satellite.next_pass(at: observer, after: time)
+start_time # => 2016-12-05 16:23:55
+end_time # => 2016-12-05 16:32:29
+
+# And the one after that...
+start_time, end_time = satellite.next_pass(at: observer, after: end_time)
+start_time # => 2016-12-05 17:58:46
+end_time # => 2016-12-05 18:09:15
 ```
 
 ## Development
