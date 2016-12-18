@@ -78,7 +78,7 @@ module Predict
     def self.parse_three_line(string : String, detect_zero_index = true)
       lines = string.chomp.split('\n')
 
-      raise TLEParseException.new("Invalid number of lines") unless lines.size == 3
+      raise TLEParseException.new("Expected 3 lines but was #{lines.size}") unless lines.size == 3
 
       # Parse satellite name
       name_line = lines[0]
@@ -102,6 +102,8 @@ module Predict
     # Parses a two-line TLE given an array of two lines and a human-readable
     # name.
     def self.parse_two_line(lines : Array(String), name : String)
+      raise TLEParseException.new("Expected 2 lines but was #{lines.size}") unless lines.size == 2
+
       line1 = lines[0]
 
       raise TLEParseException.new("No index on line 1") unless line1[0] == '1'
