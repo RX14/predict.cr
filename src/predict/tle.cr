@@ -75,7 +75,8 @@ module Predict
     # Parses a three line TLE (name, line1, line2). TLEs are sometimes supplied
     # with a leading zero on the name line, which this library will strip unless
     # *detect_zero_index* is set to false.
-    def self.parse_three_line(string : String, detect_zero_index = true)
+    def self.parse_three_line(string : String, *, detect_zero_index = true) : TLE
+      # TODO: use each_line iterator after next release
       lines = string.chomp.split('\n')
 
       raise TLEParseException.new("Expected 3 lines but was #{lines.size}") unless lines.size == 3
@@ -94,6 +95,30 @@ module Predict
       parse_two_line(lines, name)
     end
 
+    # Reads a single three line TLE from IO. Returns nil if there's no TLE to
+    # read. TLEs are sometimes supplied with a leading zero on the name line,
+    # which this library will strip unless *detect_zero_index* is set to false.
+    def self.parse_three_line(io : IO, *, detect_zero_index = true) : TLE?
+      # TODO: use each_line iterator after next release
+
+      # Parse satellite name
+      name_line = io.gets.try(&.chomp)
+      return unless name_line
+      if detect_zero_index && name_line[0] == '0'
+        name = name_line[2..-1]
+      else
+        name = name_line
+      end
+
+      line1 = io.gets.try(&.chomp)
+      raise TLEParseException.new("Expected 3 lines but was 1") unless line1
+
+      line2 = io.gets.try(&.chomp)
+      raise TLEParseException.new("Expected 3 lines but was 2") unless line2
+
+      parse_two_line({line1, line2}, name)
+    end
+
     # Parses a two-line TLE given a tle string and a human-readable name.
     def self.parse_two_line(tle : String, name : String)
       parse_two_line(tle.chomp.split('\n'), name)
@@ -101,7 +126,7 @@ module Predict
 
     # Parses a two-line TLE given an array of two lines and a human-readable
     # name.
-    def self.parse_two_line(lines : Array(String), name : String)
+    def self.parse_two_line(lines : Indexable(String), name : String)
       raise TLEParseException.new("Expected 2 lines but was #{lines.size}") unless lines.size == 2
 
       line1 = lines[0]
