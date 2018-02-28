@@ -158,8 +158,10 @@ module Predict
       # -1 because we want a day *offset* from the start of the year
       # instead of days *in* the year.
       epoch_days = line1[20..31].to_f - 1.0
-      epoch_days += year_to_days(epoch_year)
-      epoch = Time.new((epoch_days * Time::Span::TicksPerDay).to_i64, Time::Kind::Utc)
+      # TODO: remove before commit
+      # epoch_days += year_to_days(epoch_year)
+      # epoch = Time.new((epoch_days * Time::Span::TicksPerDay).to_i64, Time::Kind::Utc)
+      epoch = Time.new(epoch_year, 1, 1) + epoch_days.days
 
       # Value in TLE is divided by two
       mean_motion_1st_deriv = line1[33..42].to_f * 2

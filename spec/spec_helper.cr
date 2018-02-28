@@ -10,11 +10,12 @@ lib SGP4
                  satrec : Predict::SGP4::Elset*)
 end
 
-RANDOM_TIME_START_TICKS = Time.new(1990, 1, 1).ticks
-RANDOM_TIME_END_TICKS   = Time.new(2020, 1, 1).ticks
+RANDOM_TIME_START  = Time.new(1990, 1, 1)
+RANDOM_TIME_END    = Time.new(2020, 1, 1)
+RANDOM_TIME_PERIOD = RANDOM_TIME_END - RANDOM_TIME_START
 
 def random_time
-  Time.new(rand(RANDOM_TIME_START_TICKS..RANDOM_TIME_END_TICKS))
+  RANDOM_TIME_START + rand(0.0..RANDOM_TIME_PERIOD.total_seconds).seconds
 end
 
 def random_teme

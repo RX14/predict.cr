@@ -109,12 +109,12 @@ describe Predict::Satellite do
     lat_long_alt = satellite_position.to_lat_long_alt(time)
     lat_long_alt.latitude.should be_close(1.4098576, 0.5e-7)
     lat_long_alt.longitude.should be_close(2.8305378, 0.5e-7)
-    lat_long_alt.altitude.should be_close(848.4314995, 0.5e-7)
+    lat_long_alt.altitude.should be_close(848.4314995, 0.5e-6)
 
     look_angle = GROUND_STATION.look_at(satellite_position, time)
     look_angle.azimuth.should be_close(0.0602822, 0.5e-7)
     look_angle.elevation.should be_close(-0.2617648, 0.5e-7)
-    look_angle.range.should be_close(5433.9602254, 0.5e-7)
+    look_angle.range.should be_close(5433.9602254, 0.5e-4)
   end
 
   it "predicts deorbiting satellites" do
@@ -129,7 +129,7 @@ describe Predict::Satellite do
     satellite_position, _ = satellite.predict(time)
 
     lat_long_alt = satellite_position.to_lat_long_alt(time)
-    lat_long_alt.altitude.should be_close(57.2849647, 0.5e-7)
+    lat_long_alt.altitude.should be_close(57.2849647, 0.5e-6)
   end
 
   it "predicts deep space satellites" do

@@ -7,4 +7,6 @@ authors:
 scripts:
   postinstall: make release=true -C src/predict/ext
 
+crystal: 0.24.1
+
 license: MIT
