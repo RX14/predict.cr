@@ -79,7 +79,7 @@ describe Predict::Satellite do
       1 28375U 04025K   09105.66391970  .00000003  00000-0  13761-4 0  3643
       2 28375 098.0551 118.9086 0084159 315.8041 043.6444 14.40638450251959
       TLE
-    time = Time.new(2009, 4, 17, 6, 57, 32)
+    time = Time.utc(2009, 4, 17, 6, 57, 32)
 
     satellite = Predict::Satellite.new(tle)
     satellite_position, _ = satellite.predict(time)
@@ -101,7 +101,7 @@ describe Predict::Satellite do
       1 11060U 78096A   09359.84164805 -.00000019  00000-0  13276-4 0  3673
       2 11060  98.9548 331.5509 0010393 187.3222 172.7804 14.17491792826101
       TLE
-    time = Time.new(2009, 12, 26, 0, 0, 0)
+    time = Time.utc(2009, 12, 26, 0, 0, 0)
 
     satellite = Predict::Satellite.new(tle)
     satellite_position, _ = satellite.predict(time)
@@ -123,7 +123,7 @@ describe Predict::Satellite do
       1 33139U 06026MX  09359.84164805  .10408321  74078-5  34039-2 0  6397
       2 33139 064.8768 254.5588 0010700 285.2081 074.8503 16.45000000 91116
       TLE
-    time = Time.new(2009, 12, 26, 0, 0, 0)
+    time = Time.utc(2009, 12, 26, 0, 0, 0)
 
     satellite = Predict::Satellite.new(tle)
     satellite_position, _ = satellite.predict(time)
@@ -138,7 +138,7 @@ describe Predict::Satellite do
       1 26609U 00072B   09105.66069202 -.00000356  00000-0  10000-3 0  2169
       2 26609 009.1977 023.4368 7962000 194.9139 106.0662 01.25584647 38840
       TLE
-    time = Time.new(2009, 4, 17, 10, 10, 52)
+    time = Time.utc(2009, 4, 17, 10, 10, 52)
 
     satellite = Predict::Satellite.new(tle)
     satellite_position, _ = satellite.predict(time)
@@ -160,7 +160,7 @@ describe Predict::Satellite do
       1 20777U 90079B   09356.31446792  .00000081  00000-0  10000-3 0  9721
       2 20777   9.6834  57.1012 0004598 207.1414 152.7950  0.99346230 50950
       TLE
-    time = Time.new(2009, 12, 26, 0, 0, 0)
+    time = Time.utc(2009, 12, 26, 0, 0, 0)
 
     satellite = Predict::Satellite.new(tle)
     satellite_position, _ = satellite.predict(time)
@@ -182,7 +182,7 @@ describe Predict::Satellite do
       1 21118U 91012A   09357.87605320  .00001593  00000-0  10000-3 0  7339
       2 21118  61.8585 240.5458 7236516 255.2789  21.0579  2.00792202138149
       TLE
-    time = Time.new(2009, 12, 26, 0, 0, 0)
+    time = Time.utc(2009, 12, 26, 0, 0, 0)
 
     satellite = Predict::Satellite.new(tle)
     satellite_position, _ = satellite.predict(time)
@@ -205,29 +205,29 @@ describe Predict::Satellite do
         1 28375U 04025K   09105.66391970  .00000003  00000-0  13761-4 0  3643
         2 28375 098.0551 118.9086 0084159 315.8041 043.6444 14.40638450251959
         TLE
-      time = Time.new(2009, 1, 5, 0, 0, 0)
+      time = Time.utc(2009, 1, 5, 0, 0, 0)
 
       satellite = Predict::Satellite.new(tle)
 
       pass_start, pass_end = satellite.next_pass(at: GROUND_STATION, after: time)
-      pass_start.should be_close(Time.new(2009, 1, 5, 4, 28, 10), 5.seconds)
-      pass_end.should be_close(Time.new(2009, 1, 5, 4, 32, 15), 5.seconds)
+      pass_start.should be_close(Time.utc(2009, 1, 5, 4, 28, 10), 5.seconds)
+      pass_end.should be_close(Time.utc(2009, 1, 5, 4, 32, 15), 5.seconds)
 
       pass_start, pass_end = satellite.next_pass(at: GROUND_STATION, after: pass_end)
-      pass_start.should be_close(Time.new(2009, 1, 5, 6, 4, 0), 5.seconds)
-      pass_end.should be_close(Time.new(2009, 1, 5, 6, 18, 0), 5.seconds)
+      pass_start.should be_close(Time.utc(2009, 1, 5, 6, 4, 0), 5.seconds)
+      pass_end.should be_close(Time.utc(2009, 1, 5, 6, 18, 0), 5.seconds)
 
       pass_start, pass_end = satellite.next_pass(at: GROUND_STATION, after: pass_end)
-      pass_start.should be_close(Time.new(2009, 1, 5, 7, 42, 45), 5.seconds)
-      pass_end.should be_close(Time.new(2009, 1, 5, 7, 57, 50), 5.seconds)
+      pass_start.should be_close(Time.utc(2009, 1, 5, 7, 42, 45), 5.seconds)
+      pass_end.should be_close(Time.utc(2009, 1, 5, 7, 57, 50), 5.seconds)
 
       pass_start, pass_end = satellite.next_pass(at: GROUND_STATION, after: pass_end)
-      pass_start.should be_close(Time.new(2009, 1, 5, 9, 22, 5), 5.seconds)
-      pass_end.should be_close(Time.new(2009, 1, 5, 9, 34, 20), 5.seconds)
+      pass_start.should be_close(Time.utc(2009, 1, 5, 9, 22, 5), 5.seconds)
+      pass_end.should be_close(Time.utc(2009, 1, 5, 9, 34, 20), 5.seconds)
 
       pass_start, pass_end = satellite.next_pass(at: GROUND_STATION, after: pass_end)
-      pass_start.should be_close(Time.new(2009, 1, 5, 11, 2, 5), 5.seconds)
-      pass_end.should be_close(Time.new(2009, 1, 5, 11, 7, 35), 5.seconds)
+      pass_start.should be_close(Time.utc(2009, 1, 5, 11, 2, 5), 5.seconds)
+      pass_end.should be_close(Time.utc(2009, 1, 5, 11, 7, 35), 5.seconds)
     end
 
     it "finds the current pass with find_occuring_pass" do
@@ -236,17 +236,17 @@ describe Predict::Satellite do
         1 28375U 04025K   09105.66391970  .00000003  00000-0  13761-4 0  3643
         2 28375 098.0551 118.9086 0084159 315.8041 043.6444 14.40638450251959
         TLE
-      time = Time.new(2009, 1, 5, 4, 30, 0)
+      time = Time.utc(2009, 1, 5, 4, 30, 0)
 
       satellite = Predict::Satellite.new(tle)
 
       pass_start, pass_end = satellite.next_pass(at: GROUND_STATION, after: time)
-      pass_start.should be_close(Time.new(2009, 1, 5, 6, 4, 0), 5.seconds)
-      pass_end.should be_close(Time.new(2009, 1, 5, 6, 18, 0), 5.seconds)
+      pass_start.should be_close(Time.utc(2009, 1, 5, 6, 4, 0), 5.seconds)
+      pass_end.should be_close(Time.utc(2009, 1, 5, 6, 18, 0), 5.seconds)
 
       pass_start, pass_end = satellite.next_pass(at: GROUND_STATION, after: time, find_occuring_pass: true)
-      pass_start.should be_close(Time.new(2009, 1, 5, 4, 28, 10), 5.seconds)
-      pass_end.should be_close(Time.new(2009, 1, 5, 4, 32, 15), 5.seconds)
+      pass_start.should be_close(Time.utc(2009, 1, 5, 4, 28, 10), 5.seconds)
+      pass_end.should be_close(Time.utc(2009, 1, 5, 4, 32, 15), 5.seconds)
     end
   end
 end

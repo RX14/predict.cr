@@ -10,8 +10,8 @@ lib SGP4
                  satrec : Predict::SGP4::Elset*)
 end
 
-RANDOM_TIME_START  = Time.new(1990, 1, 1)
-RANDOM_TIME_END    = Time.new(2020, 1, 1)
+RANDOM_TIME_START  = Time.utc(1990, 1, 1)
+RANDOM_TIME_END    = Time.utc(2020, 1, 1)
 RANDOM_TIME_PERIOD = RANDOM_TIME_END - RANDOM_TIME_START
 
 def random_time

@@ -7,7 +7,7 @@ end
 describe Predict do
   describe ".greenwich_sidereal_time" do
     it "calculates the correct GMST" do
-      gmst(Time.new(1995, 10, 1, 9, 0, 0)).should eq(2.5242182677688412)
+      gmst(Time.utc(1995, 10, 1, 9, 0, 0)).should eq(2.5242182677688412)
       # From IAU sofa tests
       gmst(2400000.5 + 53736.0).should be_close(1.754174981860675096, 1e-12)
     end
@@ -17,7 +17,7 @@ describe Predict do
     describe "#to_lat_long_alt" do
       it "converts TEME to lat/long/alt" do
         teme = Predict::TEME.new(-4400.594, 1932.870, 4760.712)
-        expected = teme.to_lat_long_alt(Time.new(1995, 11, 18, 12, 46, 0))
+        expected = teme.to_lat_long_alt(Time.utc(1995, 11, 18, 12, 46, 0))
 
         expected.latitude.should be_close(44.91 * Predict::DEG2RAD, 0.5e-2)
         expected.longitude.should be_close(-92.31 * Predict::DEG2RAD, 0.5e-2)
@@ -25,7 +25,7 @@ describe Predict do
       end
 
       it "round trips" do
-        time = Time.new(1995, 11, 18, 12, 46, 0)
+        time = Time.utc(1995, 11, 18, 12, 46, 0)
         expected = Predict::TEME.new(-4400.594, 1932.870, 4760.712)
         actual = expected.to_lat_long_alt(time).to_teme(time)
 
@@ -50,7 +50,7 @@ describe Predict do
     describe "#to_teme" do
       it "converts latitude/longitude/altitude to TEME" do
         pos = Predict::LatLongAlt.from_degrees(40.0, -75.0, 0.0)
-        teme = pos.to_teme(Time.new(1995, 10, 1, 9, 0, 0))
+        teme = pos.to_teme(Time.utc(1995, 10, 1, 9, 0, 0))
 
         teme.x.should be_close(1703.295, 0.5e-3)
         teme.y.should be_close(4586.650, 0.5e-3)
@@ -58,7 +58,7 @@ describe Predict do
       end
 
       it "round trips" do
-        time = Time.new(1995, 10, 1, 9, 0, 0)
+        time = Time.utc(1995, 10, 1, 9, 0, 0)
         expected = Predict::LatLongAlt.from_degrees(40.0, -75.0, 0.0)
         actual = expected.to_teme(time).to_lat_long_alt(time)
 
@@ -80,7 +80,7 @@ describe Predict do
 
     describe "#look_at" do
       # it "finds look angles to a satellite" do
-      #   time = Time.new(1995, 11, 18, 12, 46, 0)
+      #   time = Time.utc(1995, 11, 18, 12, 46, 0)
       #   satellite = Predict::TEME.new(-4400.594, 1932.870, 4760.712)
       #   observer = Predict::LatLongAlt.new(45.0, -93.0, 0.0)
 
