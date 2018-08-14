@@ -1,7 +1,7 @@
 require "./predict/*"
 
 module Predict
-  VERSION = "0.1.2"
+  VERSION = "0.1.3"
 
   REDUCED_JD_EPOCH  = Time.utc(1858, 11, 16, 12, 0, 0)
   REDUCED_JD_OFFSET = 2400_000
