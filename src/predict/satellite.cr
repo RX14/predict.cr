@@ -20,9 +20,7 @@ private def converge_root(a, b, *, accuracy = 1e-6, max_iterations = 40)
   # equivalent to taking the right section.
 
   max_iterations.times do |i|
-    # TODO: revert this after 0.24.2
-    # dx *= 0.5                        # halve dx
-    dx = (dx.total_nanoseconds.to_i64 / 2).nanoseconds
+    dx *= 0.5                        # halve dx
     xmid = root + dx                 # calculate x value of midsection
     fmid = yield xmid                # find function value at midsection
     root = xmid if fmid <= 0         # midsection is below root, take right section
@@ -130,9 +128,7 @@ module Predict
         end
 
         # Move forward 3/4 orbit
-        # TODO: revert this after 0.24.2
-        # time += orbit_time * 0.75
-        time += (orbit_time.total_nanoseconds.to_i64 * 3 / 4).nanoseconds
+        time += orbit_time * 0.75
         look_angles = look_angles(location, time)
       end
 
