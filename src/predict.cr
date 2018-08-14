@@ -3,7 +3,7 @@ require "./predict/*"
 module Predict
   VERSION = "0.1.2"
 
-  REDUCED_JD_EPOCH  = Time.new(1858, 11, 16, 12, 0, 0, kind: Time::Kind::Utc)
+  REDUCED_JD_EPOCH  = Time.utc(1858, 11, 16, 12, 0, 0)
   REDUCED_JD_OFFSET = 2400_000
 
   # Converts a crystal `Time` to a Julian date.
