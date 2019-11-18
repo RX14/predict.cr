@@ -2,10 +2,10 @@ name: predict
 version: 0.1.3
 
 authors:
-  - RX14 <chris@rx14.co.uk>
+  - RX14 <steph@rx14.co.uk>
 
 scripts:
-  postinstall: make release=true -C src/predict/ext
+  postinstall: make deps release=t
 
 crystal: 0.24.1
 

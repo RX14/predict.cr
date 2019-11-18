@@ -78,4 +78,4 @@ Useful reading material on sgp4 and coordinate systems is http://celestrak.com/c
 
 ## Contributors
 
-- [RX14](https://github.com/RX14) - creator, maintainer, confused guy
+- [RX14](https://github.com/RX14) - creator, maintainer
