@@ -182,6 +182,8 @@ module Predict
 
     private def check_error
       case @satrec.error
+      when 0
+        # OK
       when 1
         raise "Eccentricity >= 1.0 or < -0.001"
       when 2
@@ -194,6 +196,8 @@ module Predict
         raise "Epoch elements were sub-orbital"
       when 6
         raise "Satellite has decayed"
+      else
+        raise "Unknown Error #{@satrec.error}"
       end
     end
   end
